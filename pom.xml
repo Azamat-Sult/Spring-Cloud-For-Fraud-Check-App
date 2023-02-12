@@ -12,6 +12,7 @@
     <modules>
         <module>customer-service</module>
         <module>fraud-check-service</module>
+        <module>eureka-server</module>
     </modules>
 
     <properties>
