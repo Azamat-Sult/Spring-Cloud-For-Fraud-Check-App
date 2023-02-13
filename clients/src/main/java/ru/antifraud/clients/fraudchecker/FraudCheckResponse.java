@@ -1,4 +1,4 @@
-package ru.antifraud.clients.fraudchecker.dto;
+package ru.antifraud.clients.fraudchecker;
 
 public record FraudCheckResponse(boolean isFraudster) {
 }

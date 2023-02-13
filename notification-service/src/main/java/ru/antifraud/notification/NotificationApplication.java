@@ -1,4 +1,4 @@
-package ru.antifraud.fraudcheck;
+package ru.antifraud.notification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,10 +11,10 @@ import org.springframework.context.annotation.PropertySources;
         @PropertySource("classpath:clients-${spring.profiles.active}.properties")
 })
 @SpringBootApplication
-public class FraudCheckApplication {
+public class NotificationApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(FraudCheckApplication.class, args);
-    }
+        public static void main(String[] args) {
+                SpringApplication.run(NotificationApplication.class, args);
+        }
 
 }
