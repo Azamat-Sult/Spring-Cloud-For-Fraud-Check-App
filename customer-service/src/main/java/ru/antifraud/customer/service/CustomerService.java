@@ -2,9 +2,9 @@ package ru.antifraud.customer.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.antifraud.amqp.rabbitmq.RabbitMQMessageProducer;
 import ru.antifraud.clients.fraudchecker.FraudCheckResponse;
 import ru.antifraud.clients.fraudchecker.FraudClient;
-import ru.antifraud.clients.notification.NotificationClient;
 import ru.antifraud.clients.notification.NotificationRequest;
 import ru.antifraud.customer.dto.CustomerRegistrationRequest;
 import ru.antifraud.customer.model.Customer;
@@ -16,7 +16,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -39,7 +39,11 @@ public class CustomerService {
                 String.format("Hi %s, welcome to Fraud Checker...", customer.getFirstName())
         );
 
-        notificationClient.sendNotification(notificationRequest);
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
+        );
 
     }
 

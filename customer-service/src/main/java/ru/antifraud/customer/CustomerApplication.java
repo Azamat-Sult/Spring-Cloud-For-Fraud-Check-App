@@ -14,7 +14,12 @@ import org.springframework.context.annotation.PropertySources;
 @PropertySources({
         @PropertySource("classpath:clients-${spring.profiles.active}.properties")
 })
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "ru.antifraud.customer",
+                "ru.antifraud.amqp"
+        }
+)
 public class CustomerApplication {
 
     public static void main(String[] args) {
