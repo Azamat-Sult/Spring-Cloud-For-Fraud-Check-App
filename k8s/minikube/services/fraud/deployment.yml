@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-check-service
+  labels:
+    app: fraud-check-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: fraud-check-service
+      labels:
+        app: fraud-check-service
+    spec:
+      containers:
+        - name: fraud
+          image: azamatsult/fraud-check-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8181
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: fraud-check-service
